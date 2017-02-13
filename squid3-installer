@@ -82,10 +82,10 @@ echo -e ""$verde"Dono da VPS:$branco $dono"
 echo -e ""$branco"=================================="
 sleep 3
 echo -e ""$branco"CONFIGURANDO VPS..."
-echo -e "$verde     sucesso..."
 sleep 2
 apt-get update -y 1>/dev/null 2>/dev/null
 apt-get install squid3 -y 1>/dev/null 2>/dev/null
+echo -e "$verde     sucesso..."
 echo ""$branco"ALTERANDO SQUID..."
 cd /etc/squid*
 echo "http_port 80" > squid.conf
