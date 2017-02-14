@@ -44,7 +44,7 @@ echo -e "\033[1;33m
 
 3]$vermelhoo LIMITAR USUARIO \033[1;30m(Aplique limite de conexões simuntaneo a um usuario)\033[1;33m
 
-4]$vermelhoo DELETAR USUARIO \033[1;30m(Delete usaurios inulteis)\033[1;33m
+4]$vermelhoo DELETAR USUARIO \033[1;30m(Delete usuarios inulteis)\033[1;33m
 
 5]$vermelhoo MONITOR SSH \033[1;30m(Monitorar Usuarios conectados a vps)\033[1;33m
 
