@@ -9,6 +9,7 @@ clear
 echo " INSTALANDO CONFVPS 2.0"
 apt-get install sudo -y 1>/dev/null 2>/dev/null
 yum -y install sudo 1>/dev/null 2>/dev/null
+wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/user-del 1>/dev/null 2>/dev/null
 wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/squid3-installer 1>/dev/null 2>/dev/null
 wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/addhost 1>/dev/null 2>/dev/null
 wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/create-user 1>/dev/null 2>/dev/null
