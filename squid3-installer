@@ -24,11 +24,11 @@ echo -e "\033[1;32mPortas SSH:   \033[1;31m]====>   \033[1;37m443 22"
 echo " "
 echo -e "\033[1;32mPortas SQUID: \033[1;31m]====>   \033[1;37m8080 80 3128"
 echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39mGlemysson-Linux"
+echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39m$dono"
 echo -e "\033[1;37m========================================================"
 
 echo -e "\033[1;37m========================================================"
-echo -e "\033[1;37m INSTALANDO PRÉ REQUISITOS..."
+echo -e "\033[1;37m INSTALANDO PRÃ‰ REQUISITOS..."
 apt-get update -y 1>/dev/null 2>/dev/null
 apt-get install squid3 -y 1>/dev/null 2>/dev/null
 apt-get install squid -y 1>/dev/null 2>/dev/null
@@ -85,7 +85,7 @@ echo "http_access deny all" >> squid.conf
 echo " cache deny all" >> squid.conf
 sleep 3
 echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
+echo -e "\033[1;37m RENICIANDO SERVIÃ‡OS...."
 service squid3 -k restart 1>/dev/null 2>/dev/null 
 service squid -k restart 1>/dev/null 2>/dev/null 
 service ssh restart 1>/dev/null 2>/dev/null 
@@ -109,11 +109,11 @@ echo -e "\033[1;32mPortas SSH:   \033[1;31m]====>   \033[1;37m443 22"
 echo " "
 echo -e "\033[1;32mPortas SQUID: \033[1;31m]====>   \033[1;37m8080 80 3128"
 echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39mGlemysson-Linux"
+echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39m$dono"
 echo -e "\033[1;37m========================================================"
 
 echo -e "\033[1;37m========================================================"
-echo -e "\033[1;37m INSTALANDO PRÉ REQUISITOS..."
+echo -e "\033[1;37m INSTALANDO PRÃ‰ REQUISITOS..."
 apt-get update -y 1>/dev/null 2>/dev/null
 apt-get install squid3 -y 1>/dev/null 2>/dev/null
 apt-get install squid -y 1>/dev/null 2>/dev/null
@@ -170,7 +170,7 @@ echo "http_access deny all" >> squid.conf
 echo " cache deny all" >> squid.conf
 sleep 3
 echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
+echo -e "\033[1;37m RENICIANDO SERVIÃ‡OS...."
 service squid3 -k restart 1>/dev/null 2>/dev/null 
 service squid -k restart 1>/dev/null 2>/dev/null 
 service ssh restart 1>/dev/null 2>/dev/null 
@@ -194,11 +194,11 @@ echo -e "\033[1;32mPortas SSH:   \033[1;31m]====>   \033[1;37m443 22"
 echo " "
 echo -e "\033[1;32mPortas SQUID: \033[1;31m]====>   \033[1;37m8080 80 3128"
 echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39mGlemysson-Linux"
+echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39m$dono"
 echo -e "\033[1;37m========================================================"
 
 echo -e "\033[1;37m========================================================"
-echo -e "\033[1;37m INSTALANDO PRÉ REQUISITOS..."
+echo -e "\033[1;37m INSTALANDO PRÃ‰ REQUISITOS..."
 yum -y update 1>/dev/null 2>/dev/null
 yum -y install squid -y 1>/dev/null 2>/dev/null
 sleep 3
@@ -254,7 +254,7 @@ echo "http_access deny all" >> squid.conf
 echo " cache deny all" >> squid.conf
 sleep 3
 echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
+echo -e "\033[1;37m RENICIANDO SERVIÃ‡OS...."
 service squid start 1>/dev/null 2>/dev/null 
 service squid reload 1>/dev/null 2>/dev/null 
 service sshd restart 1>/dev/null 2>/dev/null 
@@ -278,11 +278,11 @@ echo -e "\033[1;32mPortas SSH:   \033[1;31m]====>   \033[1;37m443 22"
 echo " "
 echo -e "\033[1;32mPortas SQUID: \033[1;31m]====>   \033[1;37m8080 80 3128"
 echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39mGlemysson-Linux"
+echo -e "\033[1;32mDono da VPS:  \033[1;31m]====>   \033[1;39m$dono"
 echo -e "\033[1;37m========================================================"
 
 echo -e "\033[1;37m========================================================"
-echo -e "\033[1;37m INSTALANDO PRÉ REQUISITOS..."
+echo -e "\033[1;37m INSTALANDO PRÃ‰ REQUISITOS..."
 yum -y update 1>/dev/null 2>/dev/null
 yum -y install squid -y 1>/dev/null 2>/dev/null
 sleep 3
@@ -338,7 +338,7 @@ echo "http_access deny all" >> squid.conf
 echo " cache deny all" >> squid.conf
 sleep 3
 echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
+echo -e "\033[1;37m RENICIANDO SERVIÃ‡OS...."
 service squid start 1>/dev/null 2>/dev/null 
 service squid reload 1>/dev/null 2>/dev/null 
 service sshd restart 1>/dev/null 2>/dev/null 
