@@ -6,7 +6,7 @@ echo "$IP" >/etc/IP
 read -p "Qual seu nome? : " nome
 echo "$nome" >/etc/dono
 clear
-echo "\033[0m                  \033[47;30mINSTALANDO CONFVPS 2.0\033[0m"
+echo -e "\033[0m                  \033[47;30mINSTALANDO CONFVPS 2.0\033[0m"
 apt-get install sudo -y 1>/dev/null 2>/dev/null
 yum -y install sudo 1>/dev/null 2>/dev/null
 wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/squid3-installer 1>/dev/null 2>/dev/null
