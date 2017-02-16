@@ -109,6 +109,7 @@ then
   rm /bin/limite
   rm /bin/monitor
   rm /bin/user-del
+  rm /bin/banner
   rm installer
   sleep 2
   echo -e "O CONFVPS 2.0 Foi removido com sucesso!"
