@@ -4,6 +4,7 @@
 
 
 ==========
+==========
 CONFVPS 2.0
 
 UM SCRIPT PARA GERENCIAR SUA VPS
@@ -19,11 +20,11 @@ Obs: Execute como ROOT
     apt-get update
     apt-get install wget sudo
     wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/installer.sh
-    chmod +x installer.sh
-    bash installer.sh
+    chmod +x installer.sh
+    bash installer.sh
 
 
 ::
 # com a instalação terminada execulte o comando:
 
-CONFVPS
+# ==> CONFVPS
