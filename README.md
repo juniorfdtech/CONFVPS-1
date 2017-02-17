@@ -22,12 +22,8 @@ Obs: Execute como ROOT
     apt-get install wget sudo
     wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/installer.sh
     chmod a+x installer.sh
-    bash installer.sh
-
-
+    bash installer.sh
 ::
 # Instalação terminada execulte o comando:
 
      CONFVPS
-     
-::
