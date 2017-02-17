@@ -3,11 +3,10 @@
 # Execulte os comando abaixo
 
 
-Scripts
 ==========
-Um Conjunto de Scripts.
+CONFVPS 2.0
 
-Instalar:
+UM SCRIPT PARA GERENCIAR SUA VPS
 ---------
 
 Instalador (Recomendado)
@@ -18,19 +17,13 @@ Obs: Execute como ROOT
 ::
 
     apt-get update
-    apt-get upgrade -y
     apt-get install wget sudo
     wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/installer.sh
-    chmod a+x installer.sh
-    bash installer.sh
- 
-::
-# Instalação terminada execulte o comando:
-
-::
-  
-  
-  CONFVPS
+    chmod +x installer
+    bash installer.sh
 
 
 ::
+# com a instalação terminada execulte o comando:
+
+CONFVPS
