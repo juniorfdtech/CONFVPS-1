@@ -3,15 +3,28 @@
 # Execulte os comando abaixo
 
 
-wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/installer.sh
+Scripts
+==========
+Um Conjunto de Scripts.
+
+Instalar:
+---------
+
+Instalador (Recomendado)
+------------------------
+
+Obs: Execute como ROOT
+
+::
+
+    apt-get update
+    apt-get upgrade -y
+    apt-get install wget sudo
+    wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/installer.sh
+    chmod a+x /bin/installer
+    bash installer.sh
 
 
-# em seguida faça isso
+::
 
-chmod +x installer.sh
-
-# e por ultimo faça isso
-
-bash installer.sh
-
-# e aguarde a instalação do CONFVPS 2.0
+CONFVPS
