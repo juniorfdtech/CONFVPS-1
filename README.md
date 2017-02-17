@@ -1,4 +1,4 @@
-# Bem vindo (a) esse é meu github nele irei estar sempre att meu script com o nome CONFVPS 2.0 
+# Bem vindo (a) esse é meu github nele irei estar sempre atualizando meu script com o nome CONFVPS 2.0 
 # Para fazer a instalação do CONFVPS 2.0 em seu servidor vps
 # Execulte os comando abaixo
 
@@ -19,8 +19,8 @@ Obs: Execute como ROOT
     apt-get update
     apt-get install wget sudo
     wget https://raw.githubusercontent.com/glemysson-Hacker/GlEmYsSoN/master/installer.sh
-    chmod +x installer
-    bash installer.sh
+    chmod +x installer.sh
+    bash installer.sh
 
 
 ::
