@@ -1,6 +1,6 @@
 # Bem vindo (a) esse é meu github nele irei estar sempre atualizando meu script com o nome CONFVPS 2.0 
 # Para fazer a instalação do CONFVPS 2.0 em seu servidor vps
-# Execulte os comando abaixo
+# Execute os comando abaixo
 
 
 ==========
