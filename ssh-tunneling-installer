@@ -50,7 +50,7 @@ sleep 1
 echo -e "\033[1;37m SEU SERVIDOR VPS FOI CONFIGURADO COM SUCESSO..."
 echo -e "\033[1;37m========================================================"
 fi
-if [ "$opcao" = "1" ]
+if [ "$opcao" = "2" ]
 then
 dono=$(cat /etc/dono)
 so=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//')
