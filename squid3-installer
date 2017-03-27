@@ -1,17 +1,8 @@
 #!/bin/bash
 clear
-echo -e "\033[0;34m
-\033[1;33m1] \033[0;34mUbuntu \033[1;30m \033[1;33m
-\033[1;33m2] \033[0;34mDebian \033[1;30m\033[1;33m
-
-\033[1;33m3] \033[0;34mCentOS \033[1;30m \033[1;33m
-\033[1;33m4] \033[0;34mFedora \033[1;30m\033[1;33m"
-
-echo " "
-echo "Escolha uma opcao";read -p": " opcao
-clear
-if [ "$opcao" = "1" ]
-then 
+iptables -F 1>/dev/null 2>/dev/null
+if apt-get update -y 1>/dev/null 2>/dev/null
+then
 IP=$(cat /etc/IP)
 dono=$(cat /etc/dono)
 so=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//')
@@ -70,7 +61,7 @@ echo "# Portas do SQUID
 http_port 80
 http_port 8080
 http_port 3128
-# ACLs e Liberações
+# ACLs e LiberaÃ§Ãµes
 acl accept dstdomain -i $IP
 acl allowed dstdomain -i /etc/payloads
 acl combr dstdomain -i .com.br
@@ -95,10 +86,8 @@ sleep 3
 echo -e "\033[1;32m   sucesso..."
 echo -e "\033[1;37m SEU SERVIDOR VPS FOI CONFIGURADO COM SUCESSO..."
 echo -e "$branco========================================================"
-fi
-
-if [ "$opcao" = "2" ]
-then 
+else
+clear
 IP=$(cat /etc/IP)
 dono=$(cat /etc/dono)
 so=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//')
@@ -115,95 +104,8 @@ echo -e "\033[1;32mDono da VPS:  \033[1;31m]===>   \033[1;39m$dono"
 echo -e "\033[1;37m========================================================"
 
 echo -e "\033[1;37m========================================================"
-echo -e "\033[1;37m INSTALANDO PRE REQUISITOS..."
-apt-get update -y 1>/dev/null 2>/dev/null
-apt-get install squid3 -y 1>/dev/null 2>/dev/null
-apt-get install squid -y 1>/dev/null 2>/dev/null
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m ALTERANDO SSH..."
-echo "Port 22
-Port 443
-Protocol 2
-KeyRegenerationInterval 3600
-ServerKeyBits 1024
-SyslogFacility AUTH
-LogLevel INFO
-LoginGraceTime 120
-PermitRootLogin yes
-StrictModes yes
-RSAAuthentication yes
-PubkeyAuthentication yes
-IgnoreRhosts yes
-RhostsRSAAuthentication no
-HostbasedAuthentication no
-PermitEmptyPasswords no
-ChallengeResponseAuthentication no
-PasswordAuthentication yes
-X11Forwarding yes
-X11DisplayOffset 10
-PrintMotd no
-PrintLastLog yes
-TCPKeepAlive yes
-#UseLogin no
-AcceptEnv LANG LC_*
-Subsystem sftp /usr/lib/openssh/sftp-server
-UsePAM yes" > /etc/ssh/sshd_config
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m ALTERANDO SQUID..."
-cd /etc/squid*
-echo "# Portas do SQUID
-http_port 80
-http_port 8080
-http_port 3128
-# ACLs e Liberações
-acl accept dstdomain -i $IP
-acl allowed dstdomain -i /etc/payloads
-acl combr dstdomain -i .com.br
-acl com dstdomain -i .com
-acl all src 0.0.0.0/0.0.0.0
-http_access allow accept
-http_access allow allowed
-http_access allow combr
-http_access allow com
-http_access deny all
-always_direct allow all
-# Anonimo
-forwarded_for off
-# Pipeline
-#pipeline_prefetch on" > squid.conf
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
-service squid3 -k restart 1>/dev/null 2>/dev/null 
-service squid -k restart 1>/dev/null 2>/dev/null 
-service ssh restart 1>/dev/null 2>/dev/null 
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m SEU SERVIDOR VPS FOI CONFIGURADO COM SUCESSO..."
-echo -e "$branco========================================================"
-fi
-
-if [ "$opcao" = "3" ]
-then 
-IP=$(cat /etc/IP)
-dono=$(cat /etc/dono)
-so=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//')
-echo -e "\033[1;37m========================================================"
-echo -e "\033[1;32mSistema:      \033[1;31m]====>   \033[1;37m$so"
-echo  " "
-echo -e "\033[1;32mSeu IP:       \033[1;31m]===>   \033[1;37m$IP"
-echo " "
-echo -e "\033[1;32mPortas SSH:   \033[1;31m]===>   \033[1;37m443 22"
-echo " "
-echo -e "\033[1;32mPortas SQUID: \033[1;31m]===>   \033[1;37m8080 80 3128"
-echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]===>   \033[1;39m$dono"
-echo -e "\033[1;37m========================================================"
-
-echo -e "\033[1;37m========================================================"
-echo -e "\033[1;37m INSTALANDO PRÉ REQUISITOS..."
+echo -e "\033[1;37m INSTALANDO PRÃ‰ REQUISITOS..."
+service httpd stop 1>/dev/null 2>/dev/null
 yum -y update 1>/dev/null 2>/dev/null
 yum -y install squid -y 1>/dev/null 2>/dev/null
 sleep 3
@@ -244,7 +146,7 @@ echo "# Portas do SQUID
 http_port 80
 http_port 8080
 http_port 3128
-# ACLs e Liberações
+# ACLs e LiberaÃ§Ãµes
 acl accept dstdomain -i $IP
 acl allowed dstdomain -i /etc/payloads
 acl combr dstdomain -i .com.br
@@ -262,7 +164,7 @@ forwarded_for off
 #pipeline_prefetch on" > squid.conf
 sleep 3
 echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
+echo -e "\033[1;37m RENICIANDO SERVIÃ‡OS...."
 service squid start 1>/dev/null 2>/dev/null 
 service squid reload 1>/dev/null 2>/dev/null 
 service sshd restart 1>/dev/null 2>/dev/null 
@@ -271,90 +173,4 @@ echo -e "\033[1;32m   sucesso..."
 echo -e "\033[1;37m SEU SERVIDOR VPS FOI CONFIGURADO COM SUCESSO..."
 echo -e "$branco========================================================"
 fi
-
-if [ "$opcao" = "4" ]
-then 
-IP=$(cat /etc/IP)
-dono=$(cat /etc/dono)
-so=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//')
-echo -e "\033[1;37m========================================================"
-echo -e "\033[1;32mSistema:      \033[1;31m]===>   \033[1;37m$so"
-echo  " "
-echo -e "\033[1;32mSeu IP:       \033[1;31m]===>   \033[1;37m$IP"
-echo " "
-echo -e "\033[1;32mPortas SSH:   \033[1;31m]===>   \033[1;37m443 22"
-echo " "
-echo -e "\033[1;32mPortas SQUID: \033[1;31m]===>   \033[1;37m8080 80 3128"
-echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]===>   \033[1;39m$dono"
-echo -e "\033[1;37m========================================================"
-
-echo -e "\033[1;37m========================================================"
-echo -e "\033[1;37m INSTALANDO PRÉ REQUISITOS..."
-yum -y update 1>/dev/null 2>/dev/null
-yum -y install squid -y 1>/dev/null 2>/dev/null
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m ALTERANDO SSH..."
-echo "Port 22
-Port 443
-Protocol 2
-KeyRegenerationInterval 3600
-ServerKeyBits 1024
-SyslogFacility AUTH
-LogLevel INFO
-LoginGraceTime 120
-PermitRootLogin yes
-StrictModes yes
-RSAAuthentication yes
-PubkeyAuthentication yes
-IgnoreRhosts yes
-RhostsRSAAuthentication no
-HostbasedAuthentication no
-PermitEmptyPasswords no
-ChallengeResponseAuthentication no
-PasswordAuthentication yes
-X11Forwarding yes
-X11DisplayOffset 10
-PrintMotd no
-PrintLastLog yes
-TCPKeepAlive yes
-#UseLogin no
-AcceptEnv LANG LC_*
-Subsystem sftp /usr/lib/openssh/sftp-server
-UsePAM yes" > /etc/ssh/sshd_config
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m ALTERANDO SQUID..."
-cd /etc/squid*
-echo "# Portas do SQUID
-http_port 80
-http_port 8080
-http_port 3128
-# ACLs e Liberações
-acl accept dstdomain -i $IP
-acl allowed dstdomain -i /etc/payloads
-acl combr dstdomain -i .com.br
-acl com dstdomain -i .com
-acl all src 0.0.0.0/0.0.0.0
-http_access allow accept
-http_access allow allowed
-http_access allow combr
-http_access allow com
-http_access deny all
-always_direct allow all
-# Anonimo
-forwarded_for off
-# Pipeline
-#pipeline_prefetch on" > squid.conf
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
-service squid start 1>/dev/null 2>/dev/null 
-service squid reload 1>/dev/null 2>/dev/null 
-service sshd restart 1>/dev/null 2>/dev/null 
-sleep 3
-echo -e "\033[1;32m   sucesso..."
-echo -e "\033[1;37m SEU SERVIDOR VPS FOI CONFIGURADO COM SUCESSO..."
-echo -e "$branco========================================================"
 fi
