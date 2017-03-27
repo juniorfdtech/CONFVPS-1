@@ -173,4 +173,3 @@ echo -e "\033[1;32m   sucesso..."
 echo -e "\033[1;37m SEU SERVIDOR VPS FOI CONFIGURADO COM SUCESSO..."
 echo -e "$branco========================================================"
 fi
-fi
