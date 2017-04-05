@@ -1,0 +1,99 @@
+#!/bin/bash
+# 
+b="\033[1;37m"
+v="\033[1;32m"
+Ver="\033[1;31m"
+user()
+{
+echo -e " \033[0m                       \033[47;30mUsuarios Criados\033[0m"
+echo ""
+echo -e "\033[1;37m-------------------------------"
+for user in `awk -F : '$3 > 900 { print $1 }' /etc/passwd |grep -v "nobody" |grep -vi polkitd |grep -vi systemd-[a-z] |grep -vi systemd-[0-9]`;do
+echo -e "\033[0;32m      $user"
+echo -e "\033[1;37m-------------------------------"
+done
+}
+clear
+users()
+{
+echo -e "\033[1;37m                 \033[47;30mEscolha uma opcao abaixo\033[0m"
+echo ""
+echo -e "
+\033[1;37m[\033[1;32m 1\033[1;37m ] \033[1;31mDeletar Usuario
+\033[1;37m[\033[1;32m 2\033[1;37m ] \033[1;31mCriar Usuario
+\033[1;37m[\033[1;32m 3\033[1;37m ]\033[1;31m Alterar senha de um usuario
+\033[1;37m[\033[1;32m 4\033[1;37m ]\033[1;31m Mudar Data de Expiracao
+\033[1;37m[\033[1;32m 5\033[1;37m ]\033[1;31m Mudar Limite de Conexao de um Usuario
+\033[1;37m[\033[1;32m 6\033[1;37m ] \033[1;31mVer Usuarios Criados
+\033[1;37m[\033[1;32m 7\033[1;37m ] \033[1;31mMenu Principal"
+echo ""
+read -p "[1-7]: " opcao
+case $opcao in
+1)
+read -p "Digite o Nome do Usuario: " nome
+userdel -f $nome 1>/dev/null 2>/dev/null
+sleep 1
+echo -e "Usuario \033[1;32m$nome\033[1;31m Deletado Com Sucesso!"
+;;
+2)
+read -p "Nome: " nome
+if cat /etc/passwd |grep $name: |grep -vi [a-z]$nome |grep -v [0-9]$nome> /dev/null
+	then
+		echo -e "\033[1;31mUsuario $v$nome "$Ver"ja existe\033[0m"
+		exit 69
+fi
+read -p "Senha: " senha
+read -p "Data: " dias
+read -p "Limite: " limit
+
+clear
+limite $nome $limit
+validade=$(date '+%C%y/%m/%d' -d " +$dias days")
+validadebr=$(date '+%d/%m/%C%y' -d " +$dias days")
+sudo useradd -M -s /bin/false $nome -e $validade 1>/dev/null 2>/dev/null
+(echo $senha ; echo $senha) | passwd $nome 1>/dev/null 2>/dev/null
+IP=$(cat /etc/IP)
+echo -e "\033[1;32m           Conta Criada com Sucesso"
+echo " "
+echo -e "\033[1;33mIP:\033[1;37m $IP"
+echo -e "\033[1;33mPortas SSH:\033[1;37m 443 e 22"
+echo -e "\033[1;33mLogin:\033[1;37m $nome"
+echo -e "\033[1;33mSenha:\033[1;37m $senha"
+echo -e "\033[1;33mProxy:\033[1;37m $IP"
+echo -e "\033[1;33mPortas: \033[1;37m 3128 8080 & 80"
+echo -e "\033[1;33mValidade:\033[1;37m $validadebr"
+echo -e "\033[1;33mLimite de conexoes:\033[1;37m $limit"
+;;
+3)
+read -p "Digite o Nome Do Usuario: " nome
+read -p "Digite a Nova Senha: " senha
+(echo $senha ; echo $senha) | passwd $nome 1>/dev/null 2>/dev/null
+sleep 1
+echo -e "Senha do usuario $nome Foi\n Alterada Para $senha"
+;;
+4)
+echo ""\033[1;37m
+read -p "Qual Nome do Usuario?: " nome
+read -p "Qual a Senha do Usuario?: " senha
+read -p "Digite a Nova Data: " dias
+validade=$(date '+%C%y/%m/%d' -d " +$dias days")
+validadebr=$(date '+%d/%m/%C%y' -d " +$dias days")
+sudo useradd -M -s /bin/false $nome -e $validade 1>/dev/null 2>/dev/null
+(echo $senha ; echo $senha) | passwd $nome 1>/dev/null 2>/dev/null
+echo -e "Nova Data Aplicada Ao Usuario $nome"
+;;
+5)
+read -p "Digite o Nome Do Usuario: " nome
+read -p "Digite o Novo Limite: " limite
+limite $nome $limite
+echo -e "Novo Limite Aplicado\n Ao Usuario $nome"
+;;
+6)
+user
+;;
+7)
+CONFVPS
+;;
+esac
+}
+users

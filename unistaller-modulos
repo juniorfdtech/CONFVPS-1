@@ -1,0 +1,20 @@
+#!/bin/bash 
+clear
+b="\033[1;37m"
+v="\033[1;32m"
+Ver="\033[1;31m"
+echo -e ""$b"========>>>DIGITE NOME DO MODULO<<<========="
+echo ""
+read -p "Nome: " nome
+if apt-get purge $nome -y 1>/dev/null 2>/dev/null
+then
+apt-get autoremove -y 1>/dev/null 2>/dev/null
+echo -e ""$v"$nome Removido Com Sucesso!"
+exit 69
+else
+echo -e "$Ver""Falha, Algo deu arrado."
+sleep 1
+echo -e "Voltando ao menu..."
+sleep 3
+CONFVPS
+fi
