@@ -8,10 +8,11 @@ if apt-get update -y 1>/dev/null 2>/dev/null
 then
 apt-get upgrade -y 1>/dev/null 2>/dev/null
 echo ""
-echo -e ""$v"Sucesso! "$b"REPOSITORIOS ATUALIZADOS COM SECESSO.."
+echo -e ""$v"Sucesso! "$b"REPOSITORIOS ATUALIZADOS COM SUCESSO.."
 else
 echo -e ""$Ver"Algo Deu Errado..."
 sleep 1
 echo -e ""$Ver"Voltando Ao Menu.."
 sleep 2
+CONFVPS
 fi
