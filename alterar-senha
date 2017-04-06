@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-echo -e ""\033[1;32m"
+echo -e "\033[1;32m"
 read -p "NOVA SENHA : " senha
 (echo $senha ; echo $senha) | passwd root 1>/dev/null 2>/dev/null
 echo -e "\033[1;32mNova Senha Do Root Foi Salva com Sucesso"
