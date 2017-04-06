@@ -80,8 +80,4 @@ reboot-vps
 ;;
 esac
 }
-while :
-do
-clear
 teste
-done
