@@ -83,9 +83,3 @@ reboot-vps
 esac
 }
 teste
-echo -e "$Ver Voce Digitou Algo errado"
-sleep 1
-echo -e "$Ver Por Favor Escolha uma opcao"
-sleep 1
-clear
-teste
