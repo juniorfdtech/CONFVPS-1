@@ -17,8 +17,9 @@ else
 fi
 clear
 teste() {
-echo -e " \033[1;37m      CONFVPS 5.4 [By: @GLEMYSSON_OFICIAL]\033[0m"
-echo -e "                 $v Att: 06/04/2017"
+echo -e "$b=====================>>>"$v"CONFVPS 2.0"$b"<<<======================"
+echo -e " \033[1;37m      CONFVPS 5.5 ["$Ver"By: @GLEMYSSON_OFICIAL"$b"]\033[0m"
+echo -e "                 $v Att: 09/05/2017"
 echo -e "\033[1;37mEscolha uma das opçoẽs:    \033[1;37mPara Sair escolha a opcao 0\033[1;33m"
 echo -e "                    $b[$v 0 $b] $Ver Sair"
 echo ""
@@ -32,7 +33,7 @@ echo -e "$b[$v 07 $b]$Ver ADD BANNER"
 echo -e "$b[$v 08 $b]$Ver ADDHOST"
 echo -e "$b[$v 09 $b]$Ver REMOVER CONFVPS"
 echo -e "$b[$v 10 $b]$Ver UPDATE VPS"
-echo -e "$b----------------------------------------------------"
+echo -e "$b===========================>>>""<<<============================"
 echo -e "$Ver"
 echo -e "Escolha uma opcao";read -p ": " opcao
 case $opcao in
@@ -80,4 +81,8 @@ reboot-vps
 ;;
 esac
 }
+while :
+do
+clear
 teste
+done

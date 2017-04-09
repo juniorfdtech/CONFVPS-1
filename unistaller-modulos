@@ -12,9 +12,9 @@ apt-get autoremove -y 1>/dev/null 2>/dev/null
 echo -e ""$v"$nome Removido Com Sucesso!"
 exit 69
 else
-echo -e "$Ver""Falha, Algo deu arrado."
+yum remove $nome 1>/dev/null 2>/dev/null
 sleep 1
-echo -e "Voltando ao menu..."
-sleep 3
-CONFVPS
+echo -e ""$v"$nome Removido Com Sucesso!"
+sleep 2
+exit 69
 fi

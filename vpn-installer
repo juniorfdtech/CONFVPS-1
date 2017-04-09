@@ -115,11 +115,9 @@ if [[ -e /etc/openvpn/server.conf ]]; then
         echo -e "$b"
 			read -p "Nome Usuário: " -e -i Cliente CLIENT
 			cd /etc/openvpn/easy-rsa/
-			./easyrsa build-client-full $CLIENT nopass
+			./easyrsa build-client-full $CLIENT nopass 1>/dev/null 2>/dev/null
 			# Generates the custom client.ovpn
 			newclient "$CLIENT"
-cd /var/www/html/openvpn*
-zip $CLIENT.zip $CLIENT.ovpn
 			echo ""
 			echo -e "$b""Usuário "$v"$CLIENT "$b"adicionado, disponível em "$v"~/$CLIENT.ovpn"
 			exit
@@ -128,7 +126,7 @@ zip $CLIENT.zip $CLIENT.ovpn
 			NUMBEROFCLIENTS=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep -c "^V")
 			if [[ "$NUMBEROFCLIENTS" = '0' ]]; then
 				echo ""
-				echo -e ""Ver"Não existe nenhum usuário !$b"
+				echo -e ""$Ver"Não existe nenhum usuário !$b"
 				exit 5
 			fi
 			echo ""

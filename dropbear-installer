@@ -6,16 +6,17 @@ clear
 echo "/bin/false" >>/etc/shells
 echo -e "\033[0m                \033[47;30m DROPBEAR INSTALLER\033[0m"
 echo ""
-echo -e "      $b Escolha a porta que voce deseja usar"
+echo -e ""$b"=========>>>"$v"ESCOLHA A PORTA"$b"<<<========"
 echo ""
-echo ""
-echo -e ""$b"[$v 1 $b]$Ver 443 
-$b[$v 2 $b]$Ver 80"
+echo -e ""$b"[$v 1 $b]Porta:$Ver 443 
+$b[$v 2 $b]Porta:$Ver 80"
 echo -e ""$b
-read -p "[1 - 2]: " porta
+read -p "Porta: " -e -i 443
+clear
 case $porta in
-1)
-echo -e ""$b"ALTERANDO SSH"
+443)
+echo -e ""$b"ALTERANDO SSH..."
+sleep 1
 echo "Port 22
 Protocol 2
 KeyRegenerationInterval 3600
@@ -43,27 +44,32 @@ AcceptEnv LANG LC_*
 Subsystem sftp /usr/lib/openssh/sftp-server
 UsePAM yes" > /etc/ssh/sshd_config
 echo -e "$b    [$v OK $b]"
-echo -e ""$b"INSTALANDO DROPBEAR"
+sleep 1
+echo -e ""$b"INSTALANDO DROPBEAR..."
 apt-get install dropbear -y 1>/dev/null 2>/dev/null
 echo -e "$b    [$v OK $b]"
-echo -e ""$b"ALTERANDO DROPBEAR"
+echo -e ""$b"ALTERANDO DROPBEAR..."
+sleep 1
 echo "NO_START=0" > /etc/default/dropbear
 echo "DROPBEAR_PORT=443" >> /etc/default/dropbear
 echo -e "$b    [$v OK $b]"
-echo -e ""$b"RENICIANDOS SERVICOS"
+sleep 1
+echo -e ""$b"RENICIANDOS SERVICOS..."
 service ssh restart 1>/dev/null 2>/dev/null
 service dropbear restart 1>/dev/null 2>/dev/null
 echo -e "$b    [$v OK $b]"
+sleep 1
 echo -e ""
 echo -e ""$b"SUCESSO! TUDO TERMINADO"
 ;;
-2)
-echo -e "             "$ver$b"======>>>AVISO<<<======"
+80)
+echo -e "             "$ver$b"======>>>"$Ver"AVISO"$b"<<<======"
 echo ""
 echo -e ""$b"Ao instalar dropbear na porta 80 o squid sera parado\ncaso voce tenha ele instalado"
 echo ""
 sleep 1
 read -p "Deseja continuar? : [ s/n ] " -e -i n sim
+clear
 if [ "$sim" = "s" ];then
 echo ""
 fi
@@ -72,11 +78,14 @@ echo -e "VOLTANDO AO MENU..."
 sleep 2
 CONFVPS
 fi
-echo -e ""$b"PARANDO SQUID"
+echo -e ""$b"PARANDO SQUID..."
 service squid3 stop 1>/dev/null 2>/dev/null
 service squid stop 1>/dev/null 2>/dev/null
+sleep 1
 echo -e "$b    [$v OK $b]"
+sleep 1
 echo -e ""$b"ALTERANDO SSH..."
+sleep 1
 echo "Port 443
 Port 22
 Protocol 2
@@ -105,17 +114,24 @@ AcceptEnv LANG LC_*
 Subsystem sftp /usr/lib/openssh/sftp-server
 UsePAM yes" > /etc/ssh/sshd_config
 echo -e "$b    [$v OK $b]"
-echo -e "INSTALANDO DROPBEAR"
+sleep 1
+echo -e "INSTALANDO DROPBEAR..."
+sleep 1
 apt-get install dropbear -y 1>/dev/null 2>/dev/null
 echo -e "$b    [$v OK $b]"
-echo -e "ALTERANDO DROPBEAR"
+sleep 1
+echo -e "ALTERANDO DROPBEAR..."
+sleep 1
 echo "NO_START=0" > /etc/default/dropbear
 echo "DROPBEAR_PORT=80" >> /etc/default/dropbear
 echo -e "$b    [$v OK $b]"
-echo -e "RENICIANDOS SERVICOS"
+sleep 1
+echo -e "RENICIANDOS SERVICOS..."
+sleep 1
 service ssh restart 1>/dev/null 2>/dev/null
 service dropbear restart 1>/dev/null 2>/dev/null
 echo -e "$b    [$v OK $b]"
+sleep 1
 echo -e ""
 echo -e "SUCESSO! TUDO TERMINADO"
 exit

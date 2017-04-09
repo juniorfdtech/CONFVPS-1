@@ -25,7 +25,7 @@ echo -e "$b------------------------------------------"
 done < /tmp/users.txt
 }
 clear
-users()
+users()jj 
 {
 echo -e "\033[1;37m                 \033[47;30mEscolha uma opcao abaixo\033[0m"
 echo ""

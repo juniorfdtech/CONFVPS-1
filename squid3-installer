@@ -1,8 +1,69 @@
 #!/bin/bash
+b="\033[1;37m"
+v="\033[1;32m"
+Ver="\033[1;31m"
+clear
+if [[ -e /etc/squid3/squid.conf ]]
+then
+echo -e ""$b"========>>>"$v"SQUID3 JA INSTALADO"$b"<<<========="
+echo ""
+echo -e "$b[$v 01 $b]$Ver REMOVER SQUID3"
+echo -e "$b[$v 02 $b]$Ver REINSTALAR SQUID3"
+echo -e "$b[$v 03 $b]$Ver MANU"
+echo ""
+read -p ": " opcao1
+clear
+case $opcao1 in
+1)
+echo -e ""$Ver"REMOVENDO SQUID3..."
+service squid stop >/dev/null 2>/dev/null
+apt-get purge squid -y >/dev/null 2>/dev/null
+apt-get autoremove -y >/dev/null 2>/dev/null
+echo -e ""$Ver"SQUID3 REMOVIDO..."
+exit
+;;
+2)
+echo -e ""$v"REINSTALANDO SQUID3..."
+sleep 3
+;;
+3)
+CONFVPS
+;;
+esac
+else
+if [[ -e /etc/squid/squid.conf ]]
+then
+echo -e ""$b"========>>>"$v"SQUID JA INSTALADO"$b"<<<========="
+echo ""
+echo -e "$b[$v 01 $b]$Ver REMOVER SQUID"
+echo -e "$b[$v 02 $b]$Ver REINSTALAR SQUID"
+echo -e "$b[$v 03 $b]$Ver MANU"
+echo ""
+read -p ": " opcao2
+clear
+case $opcao2 in
+1)
+echo -e ""$Ver"REMOVENDO SQUID..."
+service squid stop >/dev/null 2>/dev/null
+apt-get purge squid -y >/dev/null 2>/dev/null
+apt-get autoremove -y >/dev/null 2>/dev/null
+echo -e ""$Ver"SQUID REMOVIDO..."
+exit
+;;
+2)
+echo -e ""$v"REINSTALANDO SQUID..."
+sleep 3
+;;
+3)
+CONFVPS
+;;
+esac
+fi
+fi
+
+echo
 clear
 iptables -F 1>/dev/null 2>/dev/null
-if apt-get update -y 1>/dev/null 2>/dev/null
-then
 IP=$(cat /etc/IP)
 dono=$(cat /etc/dono)
 so=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//')
@@ -15,9 +76,10 @@ echo -e "\033[1;32mPortas SSH:   \033[1;31m]===>   \033[1;37m443 22"
 echo " "
 echo -e "\033[1;32mPortas SQUID: \033[1;31m]===>   \033[1;37m8080 80 3128"
 echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]===>   \033[1;39m$dono"
+echo -e "\033[1;32mDono da VPS:  \033[1;31m]===>   \033[1;37m$dono"
 echo -e "\033[1;37m========================================================"
-
+if apt-get update 1>/dev/null 2>/dev/null
+then
 echo -e "\033[1;37m========================================================"
 echo -e "\033[1;37m INSTALANDO PRE REQUISITOS..."
 apt-get update -y 1>/dev/null 2>/dev/null
@@ -100,7 +162,7 @@ echo -e "\033[1;32mPortas SSH:   \033[1;31m]===>   \033[1;37m443 22"
 echo " "
 echo -e "\033[1;32mPortas SQUID: \033[1;31m]===>   \033[1;37m8080 80 3128"
 echo " "
-echo -e "\033[1;32mDono da VPS:  \033[1;31m]===>   \033[1;39m$dono"
+echo -e "\033[1;32mDono da VPS:  \033[1;31m]===>   \033[1;37m$dono"
 echo -e "\033[1;37m========================================================"
 
 echo -e "\033[1;37m========================================================"
@@ -166,7 +228,7 @@ sleep 3
 echo -e "\033[1;32m   sucesso..."
 echo -e "\033[1;37m RENICIANDO SERVIÇOS...."
 service squid start 1>/dev/null 2>/dev/null 
-service squid reload 1>/dev/null 2>/dev/null 
+service squid restart 1>/dev/null 2>/dev/null 
 service sshd restart 1>/dev/null 2>/dev/null 
 sleep 3
 echo -e "\033[1;32m   sucesso..."
