@@ -2,6 +2,8 @@
 b="\033[1;37m"
 v="\033[1;32m"
 Ver="\033[1;31m"
+fim="\033[0m"
+cab="\033[47;30m"
 
 # Secure OpenVPN server installer for Debian, Ubuntu, CentOS and Arch Linux
 # https://github.com/Angristan/OpenVPN-install
@@ -64,6 +66,10 @@ echo ""
  newclient () {
 	# Generates the custom client.ovpn
 	cp /etc/openvpn/client-template.txt ~/$1.ovpn
+	echo "http-proxy-option CUSTOM-HEADER Host $host
+http-proxy-option CUSTOM-HEADER X-Online-Host $host
+http-proxy $IP 80
+http-proxy-retry" >> ~/$1.ovpn
 	echo "<ca>" >> ~/$1.ovpn
 	cat /etc/openvpn/easy-rsa/pki/ca.crt >> ~/$1.ovpn
 	echo "</ca>" >> ~/$1.ovpn
@@ -91,11 +97,11 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 	while :
 	do
 	clear
-		echo -e ""$b"\033[0m                   \033[47;30m========>>>OpenVPN<<<========="
+		echo -e "              $b#################################### \033[0m"
+echo -e "$fim              $Ver[        $cab"$v"OPENVPN INSTALLER$fim         $Ver]"
+echo -e "              $b####################################"
 		
 		echo -e "\033[0m"
-		echo ""
-		echo -e "$b===========>>>"$v"OPENVPN JA INSTALADO"$b"<<<==========$b"
 		echo ""
 		echo -e ""$b"[$v 1 $b]$Ver CRIAR NOVO CLIENT OVPN"
 		echo -e ""$b"[$v 2 $b]$Ver EXCLUIR CLIENTE"
@@ -107,6 +113,9 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 		case $option in
 			1)
 			echo ""
+			echo -e "$b=======>>>Digite Uma Host<<<========"
+         echo ""
+         read -p "Sua Host: " -e -i sdp.vivo.com.br host
          echo ""
          echo -e "$b=======>>>Digite Um Nome<<<========"
 			echo -e ""$v"Qual nome para o novo usuário ?"
@@ -302,13 +311,71 @@ echo ""
 		echo -e "$b"
 		read -p "Nome do Cliente: " -e -i Cliente CLIENT
 	done
+	echo -e "$b=======>>>Digite Uma Host<<<========"
+         echo ""
+         read -p "Sua Host: " -e -i sdp.vivo.com.br host
+         echo ""
 	echo ""
 	echo -e ""$v"Tudo Certo!"
 	read -n1 -r -p "De Enter Pra Continuar..."
+	IP=$(cat /etc/IP)
+	 newclient () {
+	# Generates the custom client.ovpn
+	cp /etc/openvpn/client-template.txt ~/$1.ovpn
+	echo "http-proxy-option CUSTOM-HEADER Host $host
+http-proxy-option CUSTOM-HEADER X-Online-Host $host
+http-proxy $IP 80
+http-proxy-retry" >> ~/$1.ovpn
+	echo "<ca>" >> ~/$1.ovpn
+	cat /etc/openvpn/easy-rsa/pki/ca.crt >> ~/$1.ovpn
+	echo "</ca>" >> ~/$1.ovpn
+	echo "<cert>" >> ~/$1.ovpn
+	cat /etc/openvpn/easy-rsa/pki/issued/$1.crt >> ~/$1.ovpn
+	echo "</cert>" >> ~/$1.ovpn
+	echo "<key>" >> ~/$1.ovpn
+	cat /etc/openvpn/easy-rsa/pki/private/$1.key >> ~/$1.ovpn
+	echo "</key>" >> ~/$1.ovpn
+	echo "key-direction 1" >> ~/$1.ovpn
+	echo "<tls-auth>" >> ~/$1.ovpn
+	cat /etc/openvpn/tls-auth.key >> ~/$1.ovpn
+	echo "</tls-auth>" >> ~/$1.ovpn
+}
 clear
-echo -e "\033[0m                  \033[47;30m"$Ver"CONFIGURANDO...\033[0m"
+b="\033[1;37m"
+v="\033[1;32m"
+Ver="\033[1;31m"
+fim="\033[0m"
+cab="\033[47;30m"
+clear
+IP=$(cat /etc/IP)
+dono=$(cat /etc/dono)
+so=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//')
+info-vpn()
+{
+SIP=$(printf '%-17s' "$IP")
+soo=$(printf '%-20s' "$so")
+porta=$(printf '%-15s' "$PORT")
+cliente=$(printf '%-16s' "$CLIENT")
+donu=$(printf '%-17s' "$dono")
+echo -e "              $b#################################### \033[0m"
+echo -e "$fim              $Ver[        $cab"$v"OPENVPN INSTALLER$fim         $Ver]"
+echo -e "              $b####################################"
+echo -e "          $b#############################################"
+echo -e "          $b---------------------------------------------"
+echo -e "          $Ver[$v SISTEMA S.O "$Ver"  ==>   "$b" $soo"     $Ver]""
+echo -e "          $Ver[$v SEU IP "$Ver"       ==>      "$b" $SIP"          $Ver]""
+echo -e "          $Ver[$v PORTA VPN "$Ver"    ==> "$b"        $porta"   $Ver]
+echo -e "          $Ver[$v CLIENTE NAME "$Ver" ==>      "$b"  $cliente"   $Ver]""
+echo -e "          $Ver[$v DONO DA VPS "$Ver"  ==>      "$b" $donu"       $Ver]""
+echo -e "          $b---------------------------------------------"
+echo -e "          $b#############################################"
+}
+info-vpn
 echo ""
-echo -e ""$v"INSTALANDO PACOTES"
+echo ""
+echo -e "\033[0m \033[47;30m"$Ver"CONFIGURANDO...\033[0m"
+echo ""
+echo -e ""$v"INSTALANDO PACOTES...."
 
 	if [[ "$OS" = 'debian' ]]; then
 		apt-get install ca-certificates -y 1>/dev/null 2>/dev/null
@@ -394,12 +461,14 @@ WantedBy=multi-user.target" > /etc/systemd/system/rc-local.service
 	fi
 
 	# An old version of easy-rsa was available by default in some openvpn packages
+	sleep 1
 	echo -e "$b   [$v OK $b]"
+	sleep 1
 	echo -e ""$v"GERANDO CHAVES..."
-	if [[ -d /etc/openvpn/easy-rsa/ ]]; then
+echo -e ""$v"ISSO PODE DEMORAR UM POUCO..."
+
 		rm -rf /etc/openvpn/easy-rsa/ 1>/dev/null 2>/dev/null
-	fi
-	# Get easy-rsa
+	
 	wget -O ~/EasyRSA-3.0.1.tgz https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz 1>/dev/null 2>/dev/null
 	tar xzf ~/EasyRSA-3.0.1.tgz -C ~/ 1>/dev/null 2>/dev/null
 	mv ~/EasyRSA-3.0.1/ /etc/openvpn/ 1>/dev/null 2>/dev/null
@@ -421,8 +490,11 @@ WantedBy=multi-user.target" > /etc/systemd/system/rc-local.service
 	cp pki/ca.crt pki/private/ca.key dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
 	# Make cert revocation list readable for non-root
 	chmod 644 /etc/openvpn/crl.pem
+	sleep 1
 	echo -e "$b   [$v OK $b]"
+	sleep 1
 	echo -e ""$v"CRIANDO CLIENTE OVPN..."
+	sleep 1
 	# Generate server.conf
 	echo "port $PORT" > /etc/openvpn/server.conf
 	if [[ "$PROTOCOL" = 'UDP' ]]; then
@@ -605,6 +677,6 @@ echo -e "$b   [$v OK $b]"
 	echo ""
 	echo -e ""$b"Instalação completa !"
 	echo ""
-	echo "Arquivo disponível em "$v"~/$CLIENT.ovpn"$b""
+	echo -e "Arquivo disponível em "$v"~/$CLIENT.ovpn"$b""
 fi
 exit 0;
