@@ -11,7 +11,7 @@ echo ""
 echo -e ""$b"[$v 1 $b]Porta:$Ver 443 
 $b[$v 2 $b]Porta:$Ver 80"
 echo -e ""$b
-read -p "Porta: " -e -i 443
+read -p "Porta: " -e -i 443 porta
 clear
 case $porta in
 443)
