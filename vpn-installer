@@ -469,9 +469,9 @@ echo -e ""$v"ISSO PODE DEMORAR UM POUCO..."
 
 		rm -rf /etc/openvpn/easy-rsa/ 1>/dev/null 2>/dev/null
 	
-	wget -O ~/EasyRSA-3.0.1.tgz https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz 1>/dev/null 2>/dev/null
-	tar xzf ~/EasyRSA-3.0.1.tgz -C ~/ 1>/dev/null 2>/dev/null
-	mv ~/EasyRSA-3.0.1/ /etc/openvpn/ 1>/dev/null 2>/dev/null
+	wget -O ~/EasyRSA-3.0.1.tgz https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz >/dev/null 2>/dev/null
+	tar xzf ~/EasyRSA-3.0.1.tgz  >/dev/null
+	mv ~/EasyRSA-3.0.1/ /etc/openvpn/ >/dev/null
 	mv /etc/openvpn/EasyRSA-3.0.1/ /etc/openvpn/easy-rsa/ 1>/dev/null 2>/dev/null
 	chown -R root:root /etc/openvpn/easy-rsa/ 1>/dev/null 2>/dev/null
 	rm -rf ~/EasyRSA-3.0.1.tgz 1>/dev/null 2>/dev/null
@@ -484,7 +484,7 @@ echo -e ""$v"ISSO PODE DEMORAR UM POUCO..."
 	./easyrsa build-server-full server nopass 1>/dev/null 2>/dev/null
 	./easyrsa build-client-full $CLIENT nopass 1>/dev/null 2>/dev/null
 	./easyrsa gen-crl 1>/dev/null 2>/dev/null
-	# generate tls-auth key
+	# generate tls-auth key]
 	openvpn --genkey --secret /etc/openvpn/tls-auth.key 1>/dev/null 2>/dev/null
 	# Move all the generated files
 	cp pki/ca.crt pki/private/ca.key dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
