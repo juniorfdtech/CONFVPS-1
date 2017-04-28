@@ -1,6 +1,14 @@
 #!/bin/bash
+b="\033[1;37m"
+v="\033[1;32m"
+Ver="\033[1;31m"
 clear
 echo -e "\033[0m                \033[47;30mATUALIZANDO CONFVPS 2.0... \033[0m" 
+echo ""
+IP=$(cat /etc/IP)
+dono=$(cat /etc/dono)
+echo -e ""$v"SEU IP: $Ver$IP"
+echo -e ""$v"SEU NOME: $Ver$dono"
 if yum -y update 1>/dev/null 2>/dev/null
 then
 yum -y update 1>/dev/null 2>/dev/null
@@ -21,7 +29,12 @@ echo -e "\033[0;32mUSE O COMANDO:\033[1;37m CONFVPS"
 echo -e "\033[0;32m:PARA VER OQUE MUDOU NESSA ATUALIZCAO...!"
 else
 clear
-echo -e "\033[0m                \033[47;30mINSTALANDO CONFVPS 2.0... \033[0m" 
+echo -e "\033[0m                \033[47;30mATUALIZANDO CONFVPS 2.0... \033[0m" 
+echo ""
+IP=$(cat /etc/IP)
+dono=$(cat /etc/dono)
+echo -e ""$v"SEU IP: $Ver$IP"
+echo -e ""$v"SEU NOME: $Ver$dono"
 apt-get update 1>/dev/null 2>/dev/null
 apt-get install -y git 1>/dev/null 2>/dev/null
 git clone https://github.com/GlEmYsSoN-LiNuX/CONFVPS.git 1>/dev/null 2>/dev/null

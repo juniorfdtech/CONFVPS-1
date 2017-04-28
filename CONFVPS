@@ -18,24 +18,24 @@ fi
 clear
 teste() {
 echo -e "$b=====================>>>"$v"CONFVPS 2.0"$b"<<<======================"
-echo -e " \033[1;37m      CONFVPS 5.5 ["$Ver"By: @GLEMYSSON_OFICIAL"$b"]\033[0m"
-echo -e "                 $v Att: 09/04/2017"
+echo -e " \033[1;37m      CONFVPS 5.7 ["$Ver"By: @GLEMYSSON_OFICIAL"$b"]\033[0m"
+echo -e "                 $v Att: 25/04/2017"
 echo -e "\033[1;37mEscolha uma das opçoẽs:    \033[1;37mPara Sair escolha a opcao 0\033[1;33m"
 echo -e "                    $b[$v 0 $b] $Ver Sair"
 echo ""
 echo -e "$b[$v 01 $b]$Ver INSTALAR SQUID       $b[$v 11 $b]$Ver DESISTALAR MODULOS"
 echo -e "$b[$v 02 $b]$Ver INSTALAR DROPBEAR    $b[$v 12 $b]$Ver ALTERAR SENHA ROOT"
 echo -e "$b[$v 03 $b]$Ver INSTALAR OPENVPN     $b[$v 13 $b]$Ver RENICIAR VPS"
-echo -e "$b[$v 04 $b]$Ver GERENCIAR USUARIOS"
+echo -e "$b[$v 04 $b]$Ver GERENCIAR USUARIOS   $b[$v 14 $b]$Ver ATUALIZAR CONFVPS"
 echo -e "$b[$v 05 $b]$Ver MONITOR SSH"
 echo -e "$b[$v 06 $b]$Ver SPEEDTEST"
 echo -e "$b[$v 07 $b]$Ver ADD BANNER"
 echo -e "$b[$v 08 $b]$Ver ADDHOST"
 echo -e "$b[$v 09 $b]$Ver REMOVER CONFVPS"
 echo -e "$b[$v 10 $b]$Ver UPDATE VPS"
-echo -e "$b===========================>>>""<<<============================"
+echo -e "$b===========================>>>""<<<==========================="
 echo -e "$Ver"
-echo -e "Escolha uma opcao";read -p ": " opcao
+echo -e "$b["$v"Escolha uma opcao"$b"]";read -p "└─>> "  opcao
 case $opcao in
 1)
 squid3-installer
@@ -78,6 +78,9 @@ alterar-senha
 ;;
 13)
 reboot-vps
+;;
+14)
+update-confvps
 ;;
 esac
 }

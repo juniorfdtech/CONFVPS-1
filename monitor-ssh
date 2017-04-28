@@ -1,37 +1,22 @@
-#!/bin/bash
+clear
 b="\033[1;37m"
 v="\033[1;32m"
-# BY: Glemysson
- echo -e "\033[1;31m =======================================================\033[0m"
- echo -e " \033[47;30m   Usuario                :               Conexoes     \033[0m"
- echo -e "\033[1;31m =======================================================\033[0m"
-        for usur in `awk -F : '$3 > 900 { print $1 }' /etc/passwd |grep -v "nobody" |grep -vi polkitd |grep -vi systemd-[a-z] |grep -vi systemd-[0-9]`; do
-	usurnum=$(ps -u $usur |grep sshd |wc -l)
-        echo -e ""$v"    $(printf '%-41s%s' $usur         $usurnum) \033[0m"
-        echo -e "\033[1;31m =======================================================\033[0m"
-        done
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+Ver="\033[1;31m"
+echo -e " \033[0m               \033[47;30mMONITOR-SSH\033[0m"
+echo ""
+echo -e "$b--------------------------------------------"
+echo -e "\033[47;30m"$Ver"Usuario C.      Data de E.       Conexoes S.\033[0m"
+echo -e "$b--------------------------------------------"
+awk -F : '$3 >= 1000 { print $1 }' /etc/passwd | grep -v "nobody" > /tmp/users.txt
+i=0
+while read usuario
+do
+i=$(($i+1))
+usurnum=$(ps -u $usuario |grep sshd |wc -l)
+data=$(chage -l $usuario |grep -i co |awk -F : '{print $2}')
+Dataa=$(printf '%-23s' "$data")
+usuariio=$(printf ' %-14s' "$usuario")
+cone=$(printf ' %-21s' "$usurnum")
+echo -e ""$v"$usuariio $Dataa $cone"
+echo -e "$b--------------------------------------------"
+done < /tmp/users.txt

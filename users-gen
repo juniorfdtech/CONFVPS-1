@@ -7,9 +7,9 @@ user()
 {
 echo -e " \033[0m            \033[47;30mUsuarios Criados\033[0m"
 echo ""
-echo -e "$b------------------------------------------"
-echo -e "\033[47;30m"$Ver"Usuario C.      Data de E.      Conexoes S\033[0m"
-echo -e "$b------------------------------------------"
+echo -e "$b--------------------------------------------"
+echo -e "\033[47;30m"$Ver"Usuario C.      Data de E.       Conexoes S.\033[0m"
+echo -e "$b--------------------------------------------"
 awk -F : '$3 >= 1000 { print $1 }' /etc/passwd | grep -v "nobody" > /tmp/users.txt
 i=0
 while read usuario
@@ -21,13 +21,13 @@ Dataa=$(printf '%-23s' "$data")
 usuariio=$(printf ' %-14s' "$usuario")
 cone=$(printf ' %-21s' "$usurnum")
 echo -e ""$v"$usuariio $Dataa $cone"
-echo -e "$b------------------------------------------"
+echo -e "$b--------------------------------------------"
 done < /tmp/users.txt
 }
 clear
 users()
 {
-echo -e "\033[1;37m                 \033[47;30mEscolha uma opcao abaixo\033[0m"
+echo -e "\033[1;37m                 \033[47;30m"$Ver"Escolha uma opcao abaixo\033[0m"
 echo ""
 echo -e "
 \033[1;37m[\033[1;32m 1\033[1;37m ] \033[1;31mDeletar Usuario
@@ -36,17 +36,27 @@ echo -e "
 \033[1;37m[\033[1;32m 4\033[1;37m ]\033[1;31m Mudar Data de Expiracao
 \033[1;37m[\033[1;32m 5\033[1;37m ]\033[1;31m Mudar Limite de Conexao de um Usuario
 \033[1;37m[\033[1;32m 6\033[1;37m ] \033[1;31mVer Usuarios Criados
-\033[1;37m[\033[1;32m 7\033[1;37m ] \033[1;31mMenu Principal"
+\033[1;37m[\033[1;32m 7\033[1;37m ] \033[1;31mDetalhes de um usuario
+\033[1;37m[\033[1;32m 8\033[1;37m ] \033[1;31mMenu Principal"
 echo ""
-echo -e "$b["$v"1"$b"-"$v"7"$b"]";read -p ": " opcao
+echo -e "$b[$v"Escolha uma opcao"$b;]";read -p ": " opcao
 clear
 case $opcao in
 1)
 read -p "Nome: " name
- pids=$(ps -u $name |awk {'print $1'})
+if cat /etc/passwd |grep $name: |grep -vi [a-z]$name |grep -v [0-9]$name > /dev/null
+	then
+	echo ""
+ pids=$(ps -u $name 1>/dev/null 2>/dev/null |awk {'print $1'})
  kill "$pids" >/dev/null 2>/dev/null
- userdel $name 1>/dev/null 2>/dev/null
-echo -e "Usuario \033[1;32m$nome\033[1;31m Deletado Com Sucesso!"
+ userdel -f $name 1>/dev/null 2>/dev/null
+ rm /etc/CONFVPS/limite/$name
+ rm /etc/CONFVPS/USERS/$name
+echo -e "Usuario \033[1;32m$name$b Deletado Com Sucesso!"
+echo ""
+else 
+echo -e "\033[1;31mUsuario$v $name"$Ver" nao existe\033[0m"
+fi
 ;;
 2)
 clear
@@ -60,7 +70,7 @@ echo -e "\033[0m"
 	echo -e "\033[1;31mUsuario$v $name"$Ver" ja existe\033[0m"
 	else
 clear
-limite $nome $limit
+limite $name $limit
 validade=$(date '+%C%y/%m/%d' -d " +$dias days")
 validadebr=$(date '+%d/%m/%C%y' -d " +$dias days")
 sudo useradd -M -s /bin/false $name -e $validade 1>/dev/null 2>/dev/null
@@ -76,11 +86,12 @@ echo -e "\033[1;33mProxy:\033[1;37m $IP"
 echo -e "\033[1;33mPortas: \033[1;37m 3128 8080 & 80"
 echo -e "\033[1;33mValidade:\033[1;37m $validadebr"
 echo -e "\033[1;33mLimite de conexoes:\033[1;37m $limit"
+echo " $name        $senha      $validadebr" >/etc/CONFVPS/USERS/$name
 fi
 ;;
 3)
-read -p "Digite o Nome Do Usuario: " nome
-read -p "Digite a Nova Senha: " senha
+read -p "Usuario: " nome
+read -p "Nova Senha: " senha
 (echo $senha ; echo $senha) | passwd $nome 1>/dev/null 2>/dev/null
 sleep 1
 echo -e "Senha do usuario $nome Foi\n Alterada Para $senha"
@@ -88,8 +99,8 @@ echo -e "Senha do usuario $nome Foi\n Alterada Para $senha"
 4)
 echo -e "$b"
 echo -e "Ex: "$b"Dia: "$v"06
-"$b"Mes: "$v"07
-"$b"Ano: "$v"2017"
+    "$b"Mes: "$v"07
+    "$b"Ano: "$v"2017"
 echo ""
 echo -e "$b"Faca a Data Como Exemplo acima
 echo -e "$v"
@@ -109,10 +120,11 @@ read -p "Digite o ano: " ano
 echo ""
 if chage -E $dia/$mes/$ano $nome 1>/dev/null 2>/dev/null
 then
-echo -e ""$b"Nova Data Aplicada Ao Usuario $nome"
+echo -e ""$b"Nova Data Aplicada Ao Usuario$v $nome$b"
 echo ""
 echo -e "Usuario:$v $nome"
 echo -e ""$b"Data de Expiracao:$v $dia/$mes/$ano" 
+echo "".
 else
 echo -e $Ver Data invalida
 sleep 1
@@ -121,24 +133,37 @@ sleep 1
 fi
 ;;
 5)
-read -p "Digite o Nome Do Usuario: " nome
-if cat /etc/passwd |grep $nome: > /dev/null
-then
-echo ""
-else 
-echo ""
-echo -e ""$Ver"Usuario $b$nome$Ver Nao existe"
-echo ""
-exit 
-fi
+read -p "Usuario: " name
+if cat /etc/passwd |grep $name: |grep -vi [a-z]$name |grep -v [0-9]$name > /dev/null
+	then
 read -p "Digite o Novo Limite: " limite
-limite $nome $limite
-echo -e "Novo Limite Aplicado\n Ao Usuario $nome"
+limite $name $limite
+echo -e "Novo Limite Aplicado\nAo Usuario $v$name"
+else
+echo -e ""$Ver"Usuario $b$name$Ver Nao existe"
+fi
 ;;
 6)
 user
 ;;
 7)
+read -p "Nome: " nome
+clear
+if [[ -e /etc/CONFVPS/USERS/$nome ]];then
+echo ""
+else
+echo -e ""$Ver"Usuario $v$nome$Ver Nao exsite\nOu Nao Foi Criado Pelo CONFVPS"
+exit 
+fi
+det=$(cat /etc/CONFVPS/USERS/$nome)
+limite=$(cat /etc/CONFVPS/limite/$nome)
+echo -e "$b------------------------------------------------"
+echo -e "\033[47;30m"$Ver" Usuario      Senha         Data         limite \033[0m"
+echo -e "$b------------------------------------------------$v"
+echo "$det        $limite"
+echo -e "$b------------------------------------------------"
+;;
+8)
 CONFVPS
 ;;
 esac
