@@ -1,5 +1,7 @@
 #!/bin/bash
 clear
+mkdir /etc/CONFVPS
+mkdir /etc/CONFVPS/usuarios
 echo -e "\033[0m                \033[47;30mATUALIZANDO CONFVPS 2.0... \033[0m" 
 if yum -y update 1>/dev/null 2>/dev/null
 then
@@ -16,9 +18,9 @@ rm /bin/$arqs 2>/dev/null
 mv $arqs /bin
 chmod +x /bin/$arqs
 done
-echo -e "\033[0;32mATUALIZACAO FEITA COM SUCESSO"
+echo -e "\033[0;32mINSTALACAO FEITA COM SUCESSO"
 echo -e "\033[0;32mUSE O COMANDO:\033[1;37m CONFVPS"
-echo -e "\033[0;32m:PARA VER OQUE MUDOU NESSA ATUALIZCAO...!"
+echo -e "\033[0;32mPARA ENTRA NO MENU DO CONFVPS...!"
 else
 clear
 echo -e "\033[0m                \033[47;30mINSTALANDO CONFVPS 2.0... \033[0m" 
@@ -35,9 +37,9 @@ rm /bin/$arqs 2>/dev/null
 mv $arqs /bin
 chmod +x /bin/$arqs
 done
-echo -e "\033[0;32mATUALIZACAO FEITA COM SUCESSO"
+echo -e "\033[0;32mINSTALACAO FEITA COM SUCESSO"
 echo -e "\033[0;32mUSE O COMANDO:\033[1;37m CONFVPS"
-echo -e "\033[0;32m:PARA VER OQUE MUDOU NESSA ATUALIZCAO...!"
+echo -e "\033[0;32mPARA ENTRA NO MENU DO CONFVPS...!"
 fi
 cd
 rm -rf installer.sh 2> /dev/null

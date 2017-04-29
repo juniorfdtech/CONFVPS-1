@@ -25,21 +25,21 @@ echo -e "$b--------------------------------------------"
 done < /tmp/users.txt
 }
 clear
-users()
-{
 echo -e "\033[1;37m                 \033[47;30m"$Ver"Escolha uma opcao abaixo\033[0m"
 echo ""
 echo -e "
-\033[1;37m[\033[1;32m 1\033[1;37m ] \033[1;31mDeletar Usuario
-\033[1;37m[\033[1;32m 2\033[1;37m ] \033[1;31mCriar Usuario
-\033[1;37m[\033[1;32m 3\033[1;37m ]\033[1;31m Alterar senha de um usuario
-\033[1;37m[\033[1;32m 4\033[1;37m ]\033[1;31m Mudar Data de Expiracao
-\033[1;37m[\033[1;32m 5\033[1;37m ]\033[1;31m Mudar Limite de Conexao de um Usuario
-\033[1;37m[\033[1;32m 6\033[1;37m ] \033[1;31mVer Usuarios Criados
-\033[1;37m[\033[1;32m 7\033[1;37m ] \033[1;31mDetalhes de um usuario
-\033[1;37m[\033[1;32m 8\033[1;37m ] \033[1;31mMenu Principal"
+\033[1;37m[\033[1;32m 01\033[1;37m ] \033[1;31mDeletar Usuario
+\033[1;37m[\033[1;32m 02\033[1;37m ] \033[1;31mCriar Usuario
+\033[1;37m[\033[1;32m 03\033[1;37m ]\033[1;31m Alterar senha de um usuario
+\033[1;37m[\033[1;32m 04\033[1;37m ]\033[1;31m Mudar Data de Expiracao
+\033[1;37m[\033[1;32m 05\033[1;37m ]\033[1;31m Mudar Limite de Conexao de um Usuario
+\033[1;37m[\033[1;32m 06\033[1;37m ] \033[1;31mVer Usuarios Criados
+\033[1;37m[\033[1;32m 07\033[1;37m ] \033[1;31mDetalhes de um usuario
+\033[1;37m[\033[1;32m 08\033[1;37m ] \033[1;31mDeletar dos os usuarios
+\033[1;37m[\033[1;32m 09\033[1;37m ] \033[1;31mCriar Varioas Usuarios
+\033[1;37m[\033[1;32m 10\033[1;37m ] \033[1;31mMenu Principal"
 echo ""
-echo -e "$b[$v"Escolha uma opcao"$b;]";read -p ": " opcao
+echo -e "$b[$v"Escolha uma opcao"$b]";read -p ": " opcao
 clear
 case $opcao in
 1)
@@ -50,8 +50,9 @@ if cat /etc/passwd |grep $name: |grep -vi [a-z]$name |grep -v [0-9]$name > /dev/
  pids=$(ps -u $name 1>/dev/null 2>/dev/null |awk {'print $1'})
  kill "$pids" >/dev/null 2>/dev/null
  userdel -f $name 1>/dev/null 2>/dev/null
- rm /etc/CONFVPS/limite/$name
- rm /etc/CONFVPS/USERS/$name
+ rm /etc/CONFVPS/limite/$name 1>/dev/null 2>/dev/null
+ rm /etc/CONFVPS/usuarios/$name 1>/dev/null 2>/dev/null
+ rm /etc/usuarios/$name 1>/dev/null 2>/dev/null
 echo -e "Usuario \033[1;32m$name$b Deletado Com Sucesso!"
 echo ""
 else 
@@ -86,15 +87,16 @@ echo -e "\033[1;33mProxy:\033[1;37m $IP"
 echo -e "\033[1;33mPortas: \033[1;37m 3128 8080 & 80"
 echo -e "\033[1;33mValidade:\033[1;37m $validadebr"
 echo -e "\033[1;33mLimite de conexoes:\033[1;37m $limit"
-echo " $name        $senha      $validadebr" >/etc/CONFVPS/USERS/$name
+echo "$senha" >/etc/CONFVPS/usuarios/$name
 fi
 ;;
 3)
-read -p "Usuario: " nome
+read -p "Nome: " nome
 read -p "Nova Senha: " senha
 (echo $senha ; echo $senha) | passwd $nome 1>/dev/null 2>/dev/null
 sleep 1
-echo -e "Senha do usuario $nome Foi\n Alterada Para $senha"
+echo -e "Senha do usuario $v$nome $bFoi\n Alterada Para $Ver$senha$b"
+echo "$senha" >/etc/CONFVPS/usuarios/$nome
 ;;
 4)
 echo -e "$b"
@@ -111,7 +113,6 @@ echo ""
 else 
 echo ""
 echo -e ""$Ver"Usuario $b$nome$Ver Nao existe"
-echo ""
 exit 
 fi
 read -p "Digite o dia: " dia
@@ -147,25 +148,87 @@ fi
 user
 ;;
 7)
-read -p "Nome: " nome
-clear
-if [[ -e /etc/CONFVPS/USERS/$nome ]];then
-echo ""
+echo -e "$b---------------------------------------------------------\033[0m"
+echo -e "\033[47;30m "$Ver"Usuario.C        Senha.U         Data E.       Logins S.\033[0m"
+echo -e "$b---------------------------------------------------------\033[0m"
+for users in `awk -F : '$3 > 900 { print $1 }' /etc/passwd |sort |grep -v "nobody" |grep -vi polkitd |grep -vi system-`
+do
+
+if cat /etc/CONFVPS/limite/$users > /dev/null 2> /dev/null
+then
+limitecs=$(cat /etc/CONFVPS/limite/$users)
 else
-echo -e ""$Ver"Usuario $v$nome$Ver Nao exsite\nOu Nao Foi Criado Pelo CONFVPS"
-exit 
+limitecs="Invalido!"
 fi
-det=$(cat /etc/CONFVPS/USERS/$nome)
-limite=$(cat /etc/CONFVPS/limite/$nome)
-echo -e "$b------------------------------------------------"
-echo -e "\033[47;30m"$Ver" Usuario      Senha         Data         limite \033[0m"
-echo -e "$b------------------------------------------------$v"
-echo "$det        $limite"
-echo -e "$b------------------------------------------------"
+
+if  senha=$(cat /etc/CONFVPS/usuarios/$users > /dev/null 2> /dev/null)
+then
+senha=$(cat /etc/CONFVPS/usuarios/$users)
+else
+senha="Invalido!"
+fi
+
+data=$(chage -l $users |grep -i co |awk -F : '{print $2}')
+if [ $data = never ] 2> /dev/null
+then
+date="Invalido!"
+fi
+detalhesdata=$(printf '%-18s' "$data")
+detalheslimit=$(printf '%-10s' "$limitecs")
+detalhes=$(printf ' %-16s' "$users")
+detalhespass=$(printf '%-10s' "$senha")
+echo -e "$v  $detalhes $detalhespass $detalhesdata $detalheslimit\033[0m"
+echo -e "$b---------------------------------------------------------\033[0m"
+done
 ;;
 8)
+echo -e "            ==========>>>AVISO<<<==========="
+echo ""
+read -p "VOCE DESEJA REALMENT DELETAR TODOS OS USUARIOS? [s/n]: " option
+clear
+if [[ "$option" = 's' ]]; then
+echo -e ""$Ver"DELETANDO USUARIOS..."
+echo ""
+for user in $(cat /etc/passwd |awk -F : '$3 > 900 {print $1}' |grep -v "Conf" |grep -vi "nobody")
+do
+userpid=$(ps -u $user |awk {'print $1'})
+kill "$userpid" 2>/dev/null
+userdel $user
+echo -e ""$b"Usuario: $v$user "$Ver"Deletado"
+ rm /etc/CONFVPS/limite/$user >/dev/null 2>/dev/null
+ rm /etc/CONFVPS/usuarios/$user >/dev/null 2>/dev/null
+ rm /etc/usuarios/$user >/dev/null 2>/dev/null
+done
+fi
+if [[ "$option" = 'n' ]]; then
+echo -e ""$v" Saindo..."
+sleep 2
+exit
+fi
+;;
+9)
+read -p "Quantos usuarios deseja criar?: " user
+read -p "Nome: " nome
+read -p "Senha: " senha
+read -p "Limite: " limite
+read -p "Data: " dias
+clear
+echo -e "            $b====>>>"$v"USUARIOS CRIADOS"$b"<<<====="
+echo ""
+a=1
+while [ $a -le $user ]
+do
+validade=$(date '+%C%y/%m/%d' -d " +$dias days")
+validadebr=$(date '+%d/%m/%C%y' -d " +$dias days")
+useradd -s /bin/false -M $nome$a -e $validade
+( echo "$senha" ; echo "$senha" ) | passwd $nome$a 2>/dev/null
+a=$(( $a + 1 ))
+limite $nome$a $limite
+echo -e ""$b"Usuario: $v$nome$a    "$b"Senha: $v$senha   "$b"Data.E: $v$validadebr"
+echo "$senha" >/etc/CONFVPS/usuarios/$nome$a
+done
+;;
+10)
 CONFVPS
 ;;
 esac
-}
-users
