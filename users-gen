@@ -28,16 +28,16 @@ clear
 echo -e "\033[1;37m                 \033[47;30m"$Ver"Escolha uma opcao abaixo\033[0m"
 echo ""
 echo -e "
-\033[1;37m[\033[1;32m 01\033[1;37m ] \033[1;31mDeletar Usuario
-\033[1;37m[\033[1;32m 02\033[1;37m ] \033[1;31mCriar Usuario
-\033[1;37m[\033[1;32m 03\033[1;37m ]\033[1;31m Alterar senha de um usuario
-\033[1;37m[\033[1;32m 04\033[1;37m ]\033[1;31m Mudar Data de Expiracao
-\033[1;37m[\033[1;32m 05\033[1;37m ]\033[1;31m Mudar Limite de Conexao de um Usuario
-\033[1;37m[\033[1;32m 06\033[1;37m ] \033[1;31mVer Usuarios Criados
-\033[1;37m[\033[1;32m 07\033[1;37m ] \033[1;31mDetalhes de um usuario
-\033[1;37m[\033[1;32m 08\033[1;37m ] \033[1;31mDeletar dos os usuarios
-\033[1;37m[\033[1;32m 09\033[1;37m ] \033[1;31mCriar Varioas Usuarios
-\033[1;37m[\033[1;32m 10\033[1;37m ] \033[1;31mMenu Principal"
+\033[1;37m[\033[1;32m01\033[1;37m] \033[1;31mDeletar Usuario
+\033[1;37m[\033[1;32m02\033[1;37m] \033[1;31mCriar Usuario
+\033[1;37m[\033[1;32m03\033[1;37m]\033[1;31m Alterar senha de um usuario
+\033[1;37m[\033[1;32m04\033[1;37m]\033[1;31m Mudar Data de Expiracao
+\033[1;37m[\033[1;32m05\033[1;37m]\033[1;31m Mudar Limite de Conexao de um Usuario
+\033[1;37m[\033[1;32m06\033[1;37m] \033[1;31mVer Usuarios Criados
+\033[1;37m[\033[1;32m07\033[1;37m] \033[1;31mDetalhes de todos os usuarios
+\033[1;37m[\033[1;32m08\033[1;37m] \033[1;31mDeletar dos os usuarios
+\033[1;37m[\033[1;32m09\033[1;37m] \033[1;31mCriar Varioas Usuarios
+\033[1;37m[\033[1;32m10\033[1;37m] \033[1;31mMenu Principal"
 echo ""
 echo -e "$b[$v"Escolha uma opcao"$b]";read -p ": " opcao
 clear
