@@ -31,7 +31,14 @@ echo -e "| $Ver---> "$b"SEU IP: "$Ver"       --->    "$v"$SIP  $b|
 echo -e ""$b"--------------------------------------------------------"
 echo ""
 echo -e "[[ "$Ver"--> "$b"NSTALANDO PRE REQUISITOS...]]"
-
+    if [[ "$OS" = 'debian' ]]; then
+      apt-get install squid -y >/dev/null 2>/dev/null
+      fi
+      
+      if [[ "$OS" = 'debian' ]]; then
+      apt-get install squid3 -y >/dev/null 2>/dev/null
+      fi
+      
 		if [[ "$VERSION_ID" = 'VERSION_ID="7"' ]]; then
 			apt-get update 1>/dev/null 2>/dev/null
             apt -get install squid3 -y 1>/dev/null 2>/dev/null
@@ -61,7 +68,7 @@ if [[ "$VERSION_ID" = 'VERSION_ID="16.04"' ]]; then
             apt-get update 1>/dev/null 2>/dev/null
             apt -get install squid -y 1>/dev/null 2>/dev/null
 fi
-# Ubuntu 16.04
+# Ubuntu 16.10
 if [[ "$VERSION_ID" = 'VERSION_ID="16.10"' ]]; then
             apt-get update 1>/dev/null 2>/dev/null
             apt -get install squid -y 1>/dev/null 2>/dev/null
@@ -74,33 +81,11 @@ echo -e "$b  ["$v"OK$b]  "$v"Sucesso..."
 sleep 2
 
 echo -e ""$b"[[ "$Ver"--> "$b"ALTERANDO SSH...]]"
-echo "Port 22
-Port 443
-Protocol 2
-KeyRegenerationInterval 3600
-ServerKeyBits 1024
-SyslogFacility AUTH
-LogLevel INFO
-LoginGraceTime 120
+echo 'Port 443
 PermitRootLogin yes
-StrictModes yes
-RSAAuthentication yes
 PubkeyAuthentication yes
-IgnoreRhosts yes
-RhostsRSAAuthentication no
-HostbasedAuthentication no
-PermitEmptyPasswords no
-ChallengeResponseAuthentication no
 PasswordAuthentication yes
-X11Forwarding yes
-X11DisplayOffset 10
-PrintMotd no
-PrintLastLog yes
-TCPKeepAlive yes
-#UseLogin no
-AcceptEnv LANG LC_*
-Subsystem sftp /usr/lib/openssh/sftp-server
-UsePAM yes" > /etc/ssh/sshd_config
+' >> /etc/ssh/sshd_config
 sleep 2
 echo -e "$b  ["$v"OK$b]  "$v"Sucesso..."
 
@@ -155,12 +140,16 @@ echo -e "$b  ["$v"OK$b]  "$v"Sucesso..."
 fi
 echo -e "$b""[[ "$Ver"--> "$b"RENICIANDO SERVICOS...]]"
 if service ssh restart >/dev/null 2>/dev/null; then
-service squid restart >/dec/null 2>/dev/null
+service squid restart >/dev/null 2>/dev/null
 service squid3 restart >/dev/null 2>/dev/null
 else
 service sshd restart >/dev/null 2>/dev/null
 service squid restart >/dev/null 2>/dev/null
 fi
+echo ".claro.com.br
+.claro.com.sv
+.vivo.com.br
+.ddivulga.com" > /etc/payloads
 sleep 1
 echo -e "$b  ["$v"OK$b]  "$v"Sucesso..."
 echo ""
