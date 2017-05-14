@@ -114,7 +114,7 @@ forwarded_for off
 sleep 1
 echo -e "$b  ["$v"OK$b]  "$v"Sucesso..."
 else
-echo -e "'$b"[[ "$Ver"--> "$b"ALTERANDO SQUID3...]]"
+echo -e ""$b"[[ "$Ver"--> "$b"ALTERANDO SQUID3...]]"
 echo "# Portas do SQUID
 http_port 80
 http_port 8080

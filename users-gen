@@ -39,7 +39,7 @@ echo -e "
 \033[1;37m[\033[1;32m09\033[1;37m] \033[1;31mCriar Varioas Usuarios
 \033[1;37m[\033[1;32m10\033[1;37m] \033[1;31mMenu Principal"
 echo ""
-echo -e "$b[$v"Escolha uma opcao"$b]";read -n1 -p ": " opcao
+echo -e "$b[$v"Escolha uma opcao"$b]";read -p ": " opcao
 clear
 case $opcao in
 1)
@@ -61,8 +61,11 @@ fi
 ;;
 2)
 clear
+echo -e "Aviso, Ao Digitar A Senha Ela Nao irar aparecer por\nmotivos de seguranca, entao nao esqueca a senha\nque voce irar digitar!"
+echo ""
 read -p "Nome: " name
-read -p "Senha: " senha
+read -ers -p "Senha: " senha
+printf "\n"
 read -p "Data: " dias
 read -p "Limite: " limit
 echo -e "\033[0m"
@@ -184,7 +187,7 @@ done
 8)
 echo -e "            ==========>>>AVISO<<<==========="
 echo ""
-read -p "VOCE DESEJA REALMENT DELETAR TODOS OS USUARIOS? [s/n]: " option
+read -p "VOCE DESEJA REALMENT DELETAR TODOS OS USUARIOS? s/n: " option
 clear
 if [[ "$option" = 's' ]]; then
 echo -e ""$Ver"DELETANDO USUARIOS..."
@@ -194,7 +197,7 @@ do
 userpid=$(ps -u $user |awk {'print $1'})
 kill "$userpid" 2>/dev/null
 userdel $user
-echo -e ""$b"Usuario: $v$user "$Ver"Deletado"
+echo -e ""$b"Usuario: $v$user "$Ver"Deletado..."
  rm /etc/CONFVPS/limite/$user >/dev/null 2>/dev/null
  rm /etc/CONFVPS/usuarios/$user >/dev/null 2>/dev/null
  rm /etc/usuarios/$user >/dev/null 2>/dev/null
@@ -207,25 +210,26 @@ exit
 fi
 ;;
 9)
-read -p "Quantos usuarios deseja criar?: " user
+read -p "Quantos usuarios?: " user
 read -p "Nome: " nome
 read -p "Senha: " senha
 read -p "Limite: " limite
 read -p "Data: " dias
 clear
-echo -e "            $b====>>>"$v"USUARIOS CRIADOS"$b"<<<====="
+echo -e "            $b====>>>"$v"Criando Usuarios..."$b"<<<====="
 echo ""
 a=1
 while [ $a -le $user ]
 do
 validade=$(date '+%C%y/%m/%d' -d " +$dias days")
 validadebr=$(date '+%d/%m/%C%y' -d " +$dias days")
-useradd -s /bin/false -M $nome$a -e $validade
-( echo "$senha" ; echo "$senha" ) | passwd $nome$a 2>/dev/null
 a=$(( $a + 1 ))
-limite $nome$a $limite
-echo -e ""$b"Usuario: $v$nome$a    "$b"Senha: $v$senha   "$b"Data.E: $v$validadebr"
-echo "$senha" >/etc/CONFVPS/usuarios/$nome$a
+c=$(( $a - 1))
+useradd -s /bin/false -M $nome$c -e $validade
+( echo "$senha" ; echo "$senha" ) | passwd $nome$c 2>/dev/null
+limite $nome$c $limite
+echo -e ""$b"Usuario: $v$nome$c    "$b"Senha: $v$senha   "$b"Data.E: $v$validadebr"
+echo "$senha" >/etc/CONFVPS/usuarios/$nome$c
 done
 ;;
 10)
