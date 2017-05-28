@@ -1,3 +1,9 @@
+b="\033[1;37m"
+v="\033[1;32m"
+Ver="\033[1;31m"
+clear
+reinstall () 
+{
 #!/bin/bash
 clear
 b="\033[1;37m"
@@ -156,3 +162,109 @@ echo ""
 echo -e ""$b"--------------------------------------------------------"
 echo -e "SQUID INSTALADO COM SUCESSO, AGORA CRIE UM USUARIO E\nTESTE PRA VER SI ESTAR TUDO OK"
 echo -e ""$b"--------------------------------------------------------"
+}
+if [[ -f /etc/squid3/squid.conf ]]; then
+    echo -e "      "$b"SQUID3 INSTALADO!"
+    echo ""
+    echo -e "
+"$b"["$v"01"$b"]"$Ver" RENICIAR SQUID3
+"$b"["$v"02"$b"]"$Ver" PARAR SQUID3
+"$b"["$v"03"$b"]"$Ver" REINSTALAR SQUID3
+"$b"["$v"04"$b"]"$Ver" DESISTALAR SQUID3
+"$b"["$v"05"$b"]"$Ver" SAIR"
+    echo ""
+    echo -e ""$Ver"["$v"Escolha uma opcao$Ver]";echo -n ": ";read option1
+
+case $option2 in
+1)
+echo -e ""$b"RENICIANDO SQUID3..."
+service squid3 reload 1>/dev/null 2>/dev/null
+service squid3 restart 1>/dev/null 2>/dev/null
+sleep 1
+echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
+sleep 1
+echo -e ""$b"SQUID3 RENICIADO!"
+;;
+2)
+echo -e ""$b"PARANDO SQUID3..."
+service squid3 stop 1>/dev/null 2>/dev/null
+sleep 1
+echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
+sleep 1
+echo -e ""$b"SQUID3 PARADO!"
+;;
+3)
+echo -e ""$b"REISTALANDO SQUID3..."
+apt-get purge squid3 -y 1>/dev/null 2>/dev/null
+apt-get autoremove -y 1>/dev/null 2>/dev/null
+reinstall
+;;
+4)
+echo -e ""$b"DESISTALANDO SQUID3..."
+apt-get purge squid3 -y 1>/dev/null 2>/dev/null
+apt-get autoremove -y 1>/dev/null 2>/dev/null
+sleep 1
+echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
+sleep 1
+echo -e ""$b"SQUID3 DESISTALDO!"
+;;
+5)
+echo -e ""$b"SAINDO..."
+sleep 2
+exit
+;;
+esac
+else 
+if [[ -f /etc/squid/squid.conf ]]; then
+    echo -e "      "$b"SQUID INSTALADO!"
+    echo ""
+    echo -e "
+"$b"["$v"01"$b"]"$Ver" RENICIAR SQUID
+"$b"["$v"02"$b"]"$Ver" PARAR SQUID
+"$b"["$v"03"$b"]"$Ver" REINSTALAR SQUID
+"$b"["$v"04"$b"]"$Ver" DESISTALAR SQUID
+"$b"["$v"05"$b"]"$Ver" SAIR"
+    echo ""
+    echo -e ""$Ver"["$v"Escolha uma opcao$Ver]";echo -n ": ";read option2
+case $option2 in
+1)
+echo -e ""$b"RENICIANDO SQUID..."
+service squid reload 1>/dev/null 2>/dev/null
+service squid restart 1>/dev/null 2>/dev/null
+sleep 1
+echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
+sleep 1
+echo -e ""$b"SQUID RENICIADO!"
+;;
+2)
+echo -e ""$b"PARANDO SQUID..."
+service squid stop 1>/dev/null 2>/dev/null
+sleep 1
+echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
+sleep 1
+echo -e ""$b"SQUID PARADO!"
+;;
+3)
+echo -e ""$b"REISTALANDO SQUID..."
+apt-get purge squid -y 1>/dev/null 2>/dev/null
+apt-get autoremove -y 1>/dev/null 2>/dev/null
+reinstall
+;;
+4)
+echo -e ""$b"DESISTALANDO SQUID..."
+apt-get purge squid -y 1>/dev/null 2>/dev/null
+apt-get autoremove -y 1>/dev/null 2>/dev/null
+sleep 1
+echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
+sleep 1
+echo -e ""$b"SQUID DESISTALDO!"
+;;
+5)
+echo -e ""$b"SAINDO..."
+sleep 2
+exit
+;;
+esac
+  fi
+ fi
+reinstall
