@@ -3,9 +3,10 @@ clear
 IP=$(wget -o /dev/null -O- http://glemyson.hol.es)
 mkdir /etc/CONFVPS
 mkdir /etc/CONFVPS/usuarios
-read -p "CONFIRME SEU IP: " -e -i $IP IP
-read -p "DIGITE SEU NOME: " nome
+read -p "Confirme seu IP: " -e -i $IP IP
+read -p "Digit seu nome: " nome
 echo "$IP" >/etc/IP
+echo "$IP" >/etc/IPMENU
 echo "$nome" >/etc/dono
 clear
 echo -e "\033[0m                \033[47;30mATUALIZANDO CONFVPS 2.0... \033[0m" 
