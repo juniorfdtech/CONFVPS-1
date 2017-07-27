@@ -1,1 +1,2 @@
-echo -e "OPCAO EM MANUTENCAO..!"
+echo -e 'Essa opcao foi desativada'
+echo -e 'em breve ela sera removida do menu'
