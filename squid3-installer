@@ -184,6 +184,7 @@ sleep 1
 echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
 sleep 1
 echo -e ""$b"SQUID3 RENICIADO!"
+exit
 ;;
 2)
 echo -e ""$b"PARANDO SQUID3..."
@@ -192,12 +193,14 @@ sleep 1
 echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
 sleep 1
 echo -e ""$b"SQUID3 PARADO!"
+exit
 ;;
 3)
 echo -e ""$b"REISTALANDO SQUID3..."
 apt-get purge squid3 -y 1>/dev/null 2>/dev/null
 apt-get autoremove -y 1>/dev/null 2>/dev/null
 reinstall
+exit
 ;;
 4)
 echo -e ""$b"DESISTALANDO SQUID3..."
@@ -207,6 +210,7 @@ sleep 1
 echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
 sleep 1
 echo -e ""$b"SQUID3 DESISTALDO!"
+exit
 ;;
 5)
 echo -e ""$b"SAINDO..."
@@ -235,6 +239,7 @@ sleep 1
 echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
 sleep 1
 echo -e ""$b"SQUID RENICIADO!"
+exit
 ;;
 2)
 echo -e ""$b"PARANDO SQUID..."
@@ -243,12 +248,14 @@ sleep 1
 echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
 sleep 1
 echo -e ""$b"SQUID PARADO!"
+exit
 ;;
 3)
 echo -e ""$b"REISTALANDO SQUID..."
 apt-get purge squid -y 1>/dev/null 2>/dev/null
 apt-get autoremove -y 1>/dev/null 2>/dev/null
 reinstall
+exit
 ;;
 4)
 echo -e ""$b"DESISTALANDO SQUID..."
@@ -258,6 +265,7 @@ sleep 1
 echo -e ""$b"["$v"OK"$b"]$b Sucesso..."
 sleep 1
 echo -e ""$b"SQUID DESISTALDO!"
+exit
 ;;
 5)
 echo -e ""$b"SAINDO..."

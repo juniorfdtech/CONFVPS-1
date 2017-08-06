@@ -1,5 +1,6 @@
+#!/bin/bash
 clear
-if cat /etc/IPMENU | grep OCULTADO; then
+if cat /etc/IPMENU | grep OCULTADO >/dev/null; then
 echo -e 'IP JA FOI OCULTADO DO MENU'
 sleep 0.4
 echo -e -n 'DESEJA DESOCULTAR IP s/n:';read n
@@ -12,12 +13,13 @@ sleep 0.4
    if [[ "$n" = 's' ]]; then
     echo -e 'IPMENU OCULTAR, OPCAO EM TESTES CASO DE
     FALHA CONTATE O AUTOR DO SCRIPT'
-    sleep 0.5
+    sleep 1
     echo -e ''
     echo -e 'Desocultando ip...'
+    sleep 1
     ip=$(cat /etc/IP)
     echo "$ip" >/etc/IPMENU
-     if cat /etc/IPMENU |grep $ip;then
+     if cat /etc/IPMENU |grep $ip >/dev/null;then
      	echo -e 'IP DESOCULTADO DO MENU'
      	sleep 1
      	echo -e 'Saindo...'
@@ -37,9 +39,11 @@ fi
     sleep 0.5
     echo -e ''
     echo -e 'Ocultando ip...'
+    sleep 1
     echo "OCULTADO" >/etc/IPMENU
-     if cat /etc/IPMENU |grep OCULTAD; then
+    if cat /etc/IPMENU |grep OCULTAD >/dev/null; then
      	echo -e 'IP OCULTADO COM SUCESSO'
+        sleep 1
      else
      	echo -e 'Falha ao ocultar ip...'
      	sleep 0.5

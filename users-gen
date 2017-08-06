@@ -28,16 +28,16 @@ clear
 echo -e "\033[1;37m                 \033[47;30m"$Ver"Escolha uma opcao abaixo\033[0m"
 echo ""
 echo -e "
-\033[1;37m[\033[1;32m01\033[1;37m] \033[1;31mDeletar Usuario
-\033[1;37m[\033[1;32m02\033[1;37m] \033[1;31mCriar Usuario
-\033[1;37m[\033[1;32m03\033[1;37m]\033[1;31m Alterar senha de um usuario
-\033[1;37m[\033[1;32m04\033[1;37m]\033[1;31m Mudar Data de Expiracao
-\033[1;37m[\033[1;32m05\033[1;37m]\033[1;31m Mudar Limite de Conexao de um Usuario
-\033[1;37m[\033[1;32m06\033[1;37m] \033[1;31mVer Usuarios Criados
-\033[1;37m[\033[1;32m07\033[1;37m] \033[1;31mDetalhes de todos os usuarios
-\033[1;37m[\033[1;32m08\033[1;37m] \033[1;31mDeletar dos os usuarios
-\033[1;37m[\033[1;32m09\033[1;37m] \033[1;31mCriar Varioas Usuarios
-\033[1;37m[\033[1;32m10\033[1;37m] \033[1;31mMenu Principal"
+\033[1;37m[\033[1;32m01\033[1;37m] \033[1;31mDELETAR USUARIOS
+\033[1;37m[\033[1;32m02\033[1;37m] \033[1;31mCRIAR USUARIOS
+\033[1;37m[\033[1;32m03\033[1;37m] \033[1;31mALTERAR SENHA DE UM USUARIO
+\033[1;37m[\033[1;32m04\033[1;37m] \033[1;31mMUDAR DATA DE EXPIRAÇAO DE USUARIO
+\033[1;37m[\033[1;32m05\033[1;37m] \033[1;31mMUDAR LIMITE DE CONEXAO DE UM USUARIO
+\033[1;37m[\033[1;32m06\033[1;37m] \033[1;31mVER USUARIOS CRIADOS
+\033[1;37m[\033[1;32m07\033[1;37m] \033[1;31mDETALHES DE TODOS OS USUARIOS
+\033[1;37m[\033[1;32m08\033[1;37m] \033[1;31mDELETAR TODOS OS USUARIOS
+\033[1;37m[\033[1;32m09\033[1;37m] \033[1;31mCRIAR VARIOS USUARIOS
+\033[1;37m[\033[1;32m10\033[1;37m] \033[1;31mMENU PRINCIPAL"
 echo ""
 echo -e "$b[$v"Escolha uma opcao"$b]";read -p ": " opcao
 clear
@@ -61,11 +61,8 @@ fi
 ;;
 2)
 clear
-echo -e "Aviso, Ao Digitar A Senha Ela Nao irar aparecer por\nmotivos de seguranca, entao nao esqueca a senha\nque voce irar digitar!"
-echo ""
 read -p "Nome: " name
-read -ers -p "Senha: " senha
-printf "\n"
+read -p "Senha: " senha
 read -p "Data: " dias
 read -p "Limite: " limit
 echo -e "\033[0m"
@@ -161,25 +158,25 @@ if cat /etc/CONFVPS/limite/$users > /dev/null 2> /dev/null
 then
 limitecs=$(cat /etc/CONFVPS/limite/$users)
 else
-limitecs="Invalido!"
+limitecs="null"
 fi
 
-if  senha=$(cat /etc/CONFVPS/usuarios/$users > /dev/null 2> /dev/null)
+if senha=$(cat /etc/CONFVPS/usuarios/$users > /dev/null 2> /dev/null)
 then
 senha=$(cat /etc/CONFVPS/usuarios/$users)
 else
-senha="Invalido!"
+senha="null"
 fi
 
 data=$(chage -l $users |grep -i co |awk -F : '{print $2}')
 if [ $data = never ] 2> /dev/null
 then
-date="Invalido!"
+date="null"
 fi
 detalhesdata=$(printf '%-18s' "$data")
 detalheslimit=$(printf '%-10s' "$limitecs")
-detalhes=$(printf ' %-16s' "$users")
-detalhespass=$(printf '%-10s' "$senha")
+detalhes=$(printf ' %-15s' "$users")
+detalhespass=$(printf '%-13s' "$senha")
 echo -e "$v  $detalhes $detalhespass $detalhesdata $detalheslimit\033[0m"
 echo -e "$b---------------------------------------------------------\033[0m"
 done
@@ -216,7 +213,7 @@ read -p "Senha: " senha
 read -p "Limite: " limite
 read -p "Data: " dias
 clear
-echo -e "            $b====>>>"$v"Criando Usuarios..."$b"<<<====="
+echo -e "            $b====>>>"$v"Usuarios criados"$b"<<<====="
 echo ""
 a=1
 while [ $a -le $user ]

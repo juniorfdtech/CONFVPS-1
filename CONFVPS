@@ -17,12 +17,11 @@ else
 fi
 clear
 IP=$(cat /etc/IPMENU)
-teste() {
 echo -e "$b=====================>>>"$v"CONFVPS 2.0"$b"<<<======================"
-echo -e " \033[1;37m      CONFVPS 6.0 ["$Ver"By: @GLEMYSSON_OFICIAL"$b"]\033[0m"
-echo -e "                 $v Att: 28/04/2017"
+echo -e " \033[1;37m      CONFVPS V: FINAL ["$Ver"By: GlEmYsSoN OliVe'R"$b"]\033[0m"
+echo -e "                 $v Att: 05/08/2017"
 echo -e "\033[1;37mEscolha uma das opçoẽs:    \033[1;37mPara Sair escolha a opcao 0\033[1;33m"
-echo -e "\033[1;37mSeu IP ($IP)"
+echo -e "\033[1;37mSeu IP \033[1;37m(\033[1;32m$IP\033[1;37m)"
 echo -e "                    $b["$v"0"$b"]$Ver Sair"
 echo ""
 echo -e "$b["$v"01$b]$Ver INSTALAR SQUID       $b["$v"11$b]$Ver DESISTALAR MODULOS"
@@ -88,4 +87,3 @@ update-confvps
 ocultar-ip
 ;;
 esac
-teste
